@@ -13,42 +13,12 @@
 </head>
 <body>
     
-<div class="container" x-data="{open: true}">
+<div class="container" x-data="dropdown">
+    <h1 x-text="title"></h1>
 
-    <div class="column" x-data="{label: 'Content: '}">
+    <button class="btn btn-primary" @click="toggle"><i class="bi bi-chevron-expand"></i> Expand</button>
 
-        <span x-text="label"></span>
-        <span class="chip bg-primary" x-show="open">WTF</span>
-
-    </div><br>
-
-    <button class="btn btn-primary" x-data
-    @click="console.log('I\'ve been clicked');"><i class="bi bi-fingerprint"></i> Click here</button><br><br>
-
-    <div class="column" x-data="dropdown">
-        <button class="btn btn-primary" @click="toggle"><i class="bi bi-arrows-expand"></i> Expand</button>
-
-        <ul class="menu" x-show="open">
-            <li class="divider" data-content="LINKS"></li>
-            <li class="menu-item"><a href="">Click here</a></li>
-        </ul>
-
-    </div><br>
-
-    <div class="column" x-data="dropdown">
-        <button class="btn btn-primary" @click="toggle"><i class="bi bi-chevron-expand"></i> Expand</button>
-
-        <ul class="nav" x-show="open">
-            <li class="nav-item"><a href="">Click here</a></li>
-        </ul>
-
-    </div>
-
-    <ul class="tab tab-block">
-        <li :class="$store.tabs.current == 'first' ? 'tab-item active' : 'tab-item'"><a href="#" @click="$store.tabs.current = 'first'">First</a></li>
-        <li :class="$store.tabs.current == 'second' ? 'tab-item active' : 'tab-item'"><a href="#" @click="$store.tabs.current = 'second'">Second</a></li>
-        <li :class="$store.tabs.current == 'third' ? 'tab-item active' : 'tab-item'"><a href="#" @click="$store.tabs.current = 'third'">Third</a></li>
-    </ul>
+    <template id="views/Navbar.html"></template>
 
 </div>
 
