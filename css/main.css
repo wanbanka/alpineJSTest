@@ -1,0 +1,21 @@
+.start-animation {
+    scale: 0.9;
+    opacity: 0;
+}
+
+.end-animation {
+    opacity: 1;
+    scale: 1;
+}
+
+.transition-ease-out {
+
+    transition-duration: 300ms;
+    transition-timing-function: ease-out;
+
+}
+
+.transition-ease-in {
+    transition-duration: 300ms;
+    transition-timing-function: ease-in;
+}

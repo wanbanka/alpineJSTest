@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/spectre-master/spectre-master/dist/spectre-exp.min.css">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/icons-1.7.1/icons-1.7.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/main.css">
     <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
     <title>Test AlpineJS</title>
 </head>
@@ -18,7 +19,28 @@
 
     <button class="btn btn-primary" @click="toggle"><i class="bi bi-chevron-expand"></i> Expand</button>
 
-    <template id="views/Navbar.html"></template>
+        <ul class="menu" x-show="open"
+        x-transition:enter="transition-ease-out"
+        x-transition:enter-start="start-animation"
+        x-transition:enter-end="end-animation"
+        x-transition:leave="transition-ease-in"
+        x-transition:leave-start="end-animation"
+        x-transition:leave-end="start-animation">
+            <li class="divider" data-content="LINKS"></li>
+            <li class="menu-item"><a href="#">Introduction</a></li>
+            <li class="menu-item"><a href="#">Horizon</a></li>
+            <li class="menu-item"><a href="#">Projects</a></li>
+            <li class="menu-item"><a href="#">Contact</a></li>
+        </ul>
+
+        <hr>
+
+        <button :class="{'btn': true, 'btn-error': red}"
+        @click="red = !red"><i class="bi bi-hand-index-fill"></i> Click here</button><br><br>
+
+        <template x-for="status in statuses">
+            <li x-text="status"></li>
+        </template>
 
 </div>
 

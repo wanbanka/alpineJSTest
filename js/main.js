@@ -4,10 +4,11 @@ document.addEventListener("alpine:init", () => {
 
     open: false,
     title: "Start here",
+    red: false,
+    statuses: ["open", "closed", "archived"],
 
     toggle() {
         this.open = !this.open;
-        console.log(this.open);
     }
 
 }));
