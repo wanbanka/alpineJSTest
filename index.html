@@ -13,36 +13,42 @@
 </head>
 <body>
     
-<div class="container" x-data="{open: true}">
+<div class="container" x-data="dropdown">
 
-    <div class="column" x-data="{label: 'Content: '}">
+    <a class="btn btn-primary"
+    @click="console.log('I\'ve been clicked');"><i class="bi bi-fingerprint"></i> Click here</a><br><br>
 
-        <span x-text="label"></span>
-        <span class="chip bg-primary" x-show="open">WTF</span>
-
-    </div><br>
-
-    <button class="btn btn-primary" x-data
-    @click="console.log('I\'ve been clicked');"><i class="bi bi-fingerprint"></i> Click here</button><br><br>
-
-    <div class="column" x-data="dropdown">
-        <button class="btn btn-primary" @click="toggle"><i class="bi bi-arrows-expand"></i> Expand</button>
+    <div class="column">
+        <a class="btn btn-primary" @click="toggle"><i class="bi bi-arrows-expand"></i> Expand</a>
 
         <ul class="menu" x-show="open">
             <li class="divider" data-content="LINKS"></li>
             <li class="menu-item"><a href="">Click here</a></li>
         </ul>
 
-    </div><br>
+    </div><br><br>
 
-    <div class="column" x-data="dropdown">
-        <button class="btn btn-primary" @click="toggle"><i class="bi bi-chevron-expand"></i> Expand</button>
+    <form action="#" class="form-horizontal" @submit.prevent="validForm">
+        <div class="form-group has-icon-right">
+            <input type="text" 
+            name="search" 
+            id="search" 
+            class="form-input"
+            @keyup.enter="pressEnter"
+            @keyup.shift.enter="pressShiftEnter">
+            <i class="form-icon bi bi-search"></i>
+        </div>
 
-        <ul class="nav" x-show="open">
-            <li class="nav-item"><a href="">Click here</a></li>
-        </ul>
+        <button class="btn btn-success"><i class="bi bi-mailbox2"></i> Envoyer</button>
+    </form>
 
+    <a class="btn btn-error" @click="$event.target.remove();"><i class="bi-trash2-fill"></i> Remove me</a><br><br>
+
+    <div x-data>
+        <a class="btn btn-success" @click="$dispatch('foo')"><i class="bi bi-check2-circle"></i> Click here, Foo</a>
     </div>
+
+    <div x-data @foo.window="displayFoo"></div>
 
     <ul class="tab tab-block">
         <li :class="$store.tabs.current == 'first' ? 'tab-item active' : 'tab-item'"><a href="#" @click="$store.tabs.current = 'first'">First</a></li>
