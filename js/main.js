@@ -4,8 +4,18 @@ document.addEventListener("alpine:init", () => {
 
     open: false,
 
+    init() {
+
+        console.log("Page initialized");
+
+    },
+
     toggle() {
         this.open = !this.open;
+    },
+
+    consoleLog(value) {
+        console.log(value);
     }
 
 }));
@@ -19,3 +29,8 @@ Alpine.store('tabs', {
 
 });
 
+document.addEventListener("alpine:initialized", () => {
+
+    console.log("App initialized");
+
+});
