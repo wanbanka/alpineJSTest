@@ -8,53 +8,39 @@
     <link rel="stylesheet" href="css/spectre-master/spectre-master/dist/spectre-exp.min.css">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/icons-1.7.1/icons-1.7.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/main.css">
     <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
     <title>Test AlpineJS</title>
 </head>
 <body>
     
 <div class="container" x-data="dropdown">
+    <h1 x-text="title"></h1>
 
-    <a class="btn btn-primary"
-    @click="console.log('I\'ve been clicked');"><i class="bi bi-fingerprint"></i> Click here</a><br><br>
+    <button class="btn btn-primary" @click="toggle"><i class="bi bi-chevron-expand"></i> Expand</button>
 
-    <div class="column">
-        <a class="btn btn-primary" @click="toggle"><i class="bi bi-arrows-expand"></i> Expand</a>
-
-        <ul class="menu" x-show="open">
+        <ul class="menu" x-show="open"
+        x-transition:enter="transition-ease-out"
+        x-transition:enter-start="start-animation"
+        x-transition:enter-end="end-animation"
+        x-transition:leave="transition-ease-in"
+        x-transition:leave-start="end-animation"
+        x-transition:leave-end="start-animation">
             <li class="divider" data-content="LINKS"></li>
-            <li class="menu-item"><a href="">Click here</a></li>
+            <li class="menu-item"><a href="#">Introduction</a></li>
+            <li class="menu-item"><a href="#">Horizon</a></li>
+            <li class="menu-item"><a href="#">Projects</a></li>
+            <li class="menu-item"><a href="#">Contact</a></li>
         </ul>
 
-    </div><br><br>
+        <hr>
 
-    <form action="#" class="form-horizontal" @submit.prevent="validForm">
-        <div class="form-group has-icon-right">
-            <input type="text" 
-            name="search" 
-            id="search" 
-            class="form-input"
-            @keyup.enter="pressEnter"
-            @keyup.shift.enter="pressShiftEnter">
-            <i class="form-icon bi bi-search"></i>
-        </div>
+        <button :class="{'btn': true, 'btn-error': red}"
+        @click="red = !red"><i class="bi bi-hand-index-fill"></i> Click here</button><br><br>
 
-        <button class="btn btn-success"><i class="bi bi-mailbox2"></i> Envoyer</button>
-    </form>
-
-    <a class="btn btn-error" @click="$event.target.remove();"><i class="bi-trash2-fill"></i> Remove me</a><br><br>
-
-    <div x-data>
-        <a class="btn btn-success" @click="$dispatch('foo')"><i class="bi bi-check2-circle"></i> Click here, Foo</a>
-    </div>
-
-    <div x-data @foo.window="displayFoo"></div>
-
-    <ul class="tab tab-block">
-        <li :class="$store.tabs.current == 'first' ? 'tab-item active' : 'tab-item'"><a href="#" @click="$store.tabs.current = 'first'">First</a></li>
-        <li :class="$store.tabs.current == 'second' ? 'tab-item active' : 'tab-item'"><a href="#" @click="$store.tabs.current = 'second'">Second</a></li>
-        <li :class="$store.tabs.current == 'third' ? 'tab-item active' : 'tab-item'"><a href="#" @click="$store.tabs.current = 'third'">Third</a></li>
-    </ul>
+        <template x-for="status in statuses">
+            <li x-text="status"></li>
+        </template>
 
 </div>
 
