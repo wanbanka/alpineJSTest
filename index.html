@@ -14,18 +14,12 @@
 </head>
 <body>
     
-<div class="container" x-data="dropdown">
-    <h1 x-text="title"></h1>
+<div class="container" x-data="dropdown" x-init="$watch('open', value => console.log('Valeur du $watch: ' + value))">
+    <h1 x-text="title" :class="open ? 'd-none' : ''"></h1>
 
-    <button class="btn btn-primary" @click="toggle"><i class="bi bi-chevron-expand"></i> Expand</button>
+    <a class="btn btn-primary" x-bind="toggleMenu"><i class="bi bi-chevron-expand"></i> Expand</a>
 
-        <ul class="menu" x-show="open"
-        x-transition:enter="transition-ease-out"
-        x-transition:enter-start="start-animation"
-        x-transition:enter-end="end-animation"
-        x-transition:leave="transition-ease-in"
-        x-transition:leave-start="end-animation"
-        x-transition:leave-end="start-animation">
+        <ul class="menu" x-bind="optionsMenu">
             <li class="divider" data-content="LINKS"></li>
             <li class="menu-item"><a href="#">Introduction</a></li>
             <li class="menu-item"><a href="#">Horizon</a></li>
@@ -35,12 +29,95 @@
 
         <hr>
 
-        <button :class="{'btn': true, 'btn-error': red}"
-        @click="red = !red"><i class="bi bi-hand-index-fill"></i> Click here</button><br><br>
+        <a :class="{'btn': true, 'btn-error': red}"
+        x-bind="btnError"><i class="bi bi-hand-index-fill"></i> Click here</a><br><br>
 
         <template x-for="status in statuses">
             <li x-text="status"></li>
         </template>
+
+        <form class="form-horizontal" action="" method="post" x-bind="formValidation">
+            <div :class="{'form-group': true, 'has-error': test.length > 20}">
+                <label for="test" class="form-label">Test textuel: </label>
+                <input type="text" name="test" id="test" class="form-input" x-model.debounce="test">
+                <p class="form-input-hint" x-show="test.length > 20">Le texte est trop long</p>
+                <span x-text="test"></span>
+
+            </div>
+            
+            <div class="form-group">
+
+                <label for="selectNumber" class="form-label">Choisis ton numéro</label>
+                <input type="number" name="selectNumber" id="selectNumber" class="form-input" x-model.number="selectNumber">
+                <span x-text="typeof selectNumber"></span>
+
+            </div>
+
+            <div class="form-group form-inline">
+
+                <label class="form-switch">
+
+                    <input type="checkbox" name="color1" id="color1" value="rouge" x-model="colors">
+                    <i class="form-icon"></i> Rouge
+
+                </label>
+
+                <label class="form-switch">
+
+                    <input type="checkbox" name="color2" id="color2" value="jaune" x-model="colors">
+                    <i class="form-icon"></i> Jaune
+
+                </label>
+
+                <label class="form-switch">
+
+                    <input type="checkbox" name="color3" id="color3" value="vert" x-model="colors">
+                    <i class="form-icon"></i> Vert
+
+                </label>
+
+                <span x-text="colors"></span>
+
+            </div><br>
+
+            <div class="form-group form-inline">
+
+                <label class="form-radio">
+                    <input type="radio" name="answer" id="yes" value="yes" x-model="answer">
+                    <i class="form-icon"></i> Yes
+                </label>
+
+                <label class="form-radio">
+                    <input type="radio" name="answer" id="no" value="no" x-model="answer">
+                    <i class="form-icon"></i> No
+                </label>
+
+                <span x-text="answer"></span>
+
+            </div>
+
+            <div class="form-group">
+
+                <select name="place" id="place" class="form-select" x-model="placeSelected">
+                    <template x-for="place in places">
+                        <option x-text="place"></option>
+                    </template>
+                </select>
+
+                <span x-text="placeSelected"></span>
+
+            </div>
+            
+            <button class="btn btn-success"><i class="bi bi-envelope-fill"></i> Envoyer</button>
+        </form> 
+
+        <ul x-init="console.log('Tabs initialized');" x-effect="consoleLog(open);" class="tab tab-block">
+            <li :class="{'tab-item': true, 'active': $store.tabs.current == 'first'}"><a href="#" @click="$store.tabs.current = 'first'">First</a></li>
+            <li :class="{'tab-item': true, 'active': $store.tabs.current == 'second'}"><a href="#" @click="$store.tabs.current = 'second'">Second</a></li>
+            <li :class="{'tab-item': true, 'active': $store.tabs.current == 'third'}"><a href="#" @click="$store.tabs.current = 'third'">Third</a></li>
+        </ul>
+
+    </div>
 
 </div>
 
