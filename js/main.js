@@ -5,7 +5,11 @@ document.addEventListener("alpine:init", () => {
     title: "Alpine Test",
     open: false,
     red: false,
-    statuses: ["Open", "Close", "Busy"],
+    statuses: [
+        {id: 1, status: "Open"},
+        {id: 2, status: "Closed"},
+        {id: 4, status: "Pending"}
+    ],
     test: "",
     colors: ["rouge"],
     answer: "yes",
@@ -16,6 +20,9 @@ document.addEventListener("alpine:init", () => {
     init() {
 
         console.log("Page initialized");
+        this.$watch("open", (value) => {
+            console.log("Valeur du $watch: " + value);
+        });
 
     },
 
@@ -85,6 +92,21 @@ Alpine.store('tabs', {
 
     current: "first",
     items: ["first", "second", "third"]
+
+});
+
+Alpine.store("darkMode", {
+
+    on: false,
+
+    init() {
+        this.on = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        console.log(this.on);
+    },
+
+    toggle() {
+        this.on = !this.on;
+    }
 
 });
 

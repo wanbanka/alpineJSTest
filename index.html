@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/icons-1.7.1/icons-1.7.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/main.css">
-    <script defer src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.7.0/dist/cdn.min.js"></script>
     <title>Test AlpineJS</title>
 </head>
 <body>
     
-<div class="container" x-data="dropdown" x-init="$watch('open', value => console.log('Valeur du $watch: ' + value))">
-    <h1 x-text="title" :class="open ? 'd-none' : ''"></h1>
+<div id="container" class="container" x-data="dropdown">
+    <h1 x-cloak x-text="title" :class="open ? 'd-none' : ''"></h1>
 
     <a class="btn btn-primary" x-bind="toggleMenu"><i class="bi bi-chevron-expand"></i> Expand</a>
 
@@ -32,9 +32,11 @@
         <a :class="{'btn': true, 'btn-error': red}"
         x-bind="btnError"><i class="bi bi-hand-index-fill"></i> Click here</a><br><br>
 
-        <template x-for="status in statuses">
-            <li x-text="status"></li>
+        <ul x-id="['list-item']">
+        <template x-for="status in statuses" :key="status.id">
+            <li :id="$id('list-item', status.id)" x-text="status.status"></li>
         </template>
+        </ul>
 
         <form class="form-horizontal" action="" method="post" x-bind="formValidation">
             <div :class="{'form-group': true, 'has-error': test.length > 20}">
@@ -49,7 +51,7 @@
 
                 <label for="selectNumber" class="form-label">Choisis ton numéro</label>
                 <input type="number" name="selectNumber" id="selectNumber" class="form-input" x-model.number="selectNumber">
-                <span x-text="typeof selectNumber"></span>
+                <span x-text="selectNumber"></span>
 
             </div>
 
@@ -76,7 +78,12 @@
 
                 </label>
 
-                <span x-text="colors"></span>
+                <template x-for="(color, index) in colors" :key="index">
+                    <li>
+                        <span x-text="index + ': '"></span>
+                        <span x-text="color"></span>
+                    </li>
+                </template>
 
             </div><br>
 
@@ -107,9 +114,34 @@
                 <span x-text="placeSelected"></span>
 
             </div>
+
+            <div class="form-group" x-id="['text-input']">
+                <label :for="$id('text-input')" class="form-label">Texte 1 : </label>
+                <input type="text" class="form-input" :id="$id('text-input')">
+            </div>
+
+            <div class="form-group" x-id="['text-input']">
+                <label :for="$id('text-input')" class="form-label">Texte 2 : </label>
+                <input type="text" class="form-input" :id="$id('text-input')">
+            </div>
             
             <button class="btn btn-success"><i class="bi bi-envelope-fill"></i> Envoyer</button>
-        </form> 
+        </form>
+
+        <div x-data :class="{'hero': true, 'bg-dark': $store.darkMode.on}">
+            <div class="hero-body">
+                <h1>Hey tout le monde !</h1>
+                <p>Comment ça va ?</p>
+                <button x-data @click="$store.darkMode.toggle()" :class="{'btn': true, 'btn-success': !$store.darkMode.on}">
+                    <template x-if="!$store.darkMode.on">
+                        <span><i class="bi bi-moon-fill"></i> Dark mode</span>
+                    </template>
+                    <template x-if="$store.darkMode.on">
+                        <span><i class="bi bi-sun-fill"></i> Light mode</span>
+                    </template>
+                </button>
+            </div>
+        </div>
 
         <ul x-init="console.log('Tabs initialized');" x-effect="consoleLog(open);" class="tab tab-block">
             <li :class="{'tab-item': true, 'active': $store.tabs.current == 'first'}"><a href="#" @click="$store.tabs.current = 'first'">First</a></li>
@@ -118,8 +150,6 @@
         </ul>
 
     </div>
-
-</div>
 
 <script src="js/main.js"></script>
 

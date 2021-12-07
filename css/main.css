@@ -19,3 +19,7 @@
     transition-duration: 300ms;
     transition-timing-function: ease-in;
 }
+
+[x-cloak] {
+    display: none !important;
+}
