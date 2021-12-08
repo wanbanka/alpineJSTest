@@ -29,6 +29,25 @@
 
         <hr>
 
+        <div class="card col-4">
+
+            <div class="card-image">
+                <img :src="movie.Poster" alt="Poster du film" class="img-responsive">
+            </div>
+            <div class="card-header">
+                <h1 class="card-title" x-text="movie.Title"></h1>
+                <p class="card-subtitle text-gray" x-text="'Directed by ' + movie.Director"></p>
+            </div>
+            <div class="card-body">
+                <div class="loading loading-lg" x-show="movie == null"></div>
+                <p x-text="movie.Plot"></p>
+            </div>
+            <div class="card-footer">
+                <i class="bi bi-hand-thumbs-up-fill text-success"></i>
+                <span class="text-success" x-text="movie.Ratings.find(rating => rating.Source == 'Internet Movie Database').Value"></span>
+            </div>
+        </div><br>
+
         <a :class="{'btn': true, 'btn-error': red}"
         x-bind="btnError"><i class="bi bi-hand-index-fill"></i> Click here</a><br><br>
 

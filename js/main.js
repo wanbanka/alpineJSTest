@@ -16,6 +16,7 @@ document.addEventListener("alpine:init", () => {
     places: ["Paris", "London", "LA", "Chicago", "San Francisco"],
     placeSelected: "",
     selectNumber: "",
+    movie: null,
 
     init() {
 
@@ -23,6 +24,19 @@ document.addEventListener("alpine:init", () => {
         this.$watch("open", (value) => {
             console.log("Valeur du $watch: " + value);
         });
+        this.movie().then((response) => {
+
+            this.movie = response;
+
+        });
+
+    },
+
+    async movie() {
+
+        let response = await fetch("http://www.omdbapi.com/?i=tt3896198&apikey=91cf00f8");
+
+        return await response.json();
 
     },
 
